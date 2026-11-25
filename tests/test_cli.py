@@ -45,3 +45,9 @@ def test_bad_config_exits_with_code_2(tmp_path, capsys):
     bad.write_text("[disk]\nwarn_precent = 1\n")
     assert main(["--config", str(bad), "collect"]) == 2
     assert "unknown setting" in capsys.readouterr().err
+
+
+def test_collect_includes_memory(capsys):
+    # Last step of the task: add the memory check to run_checks() in cli.py.
+    assert main(["collect"]) == 0
+    assert "memory" in capsys.readouterr().out

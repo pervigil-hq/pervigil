@@ -12,6 +12,7 @@ from pathlib import Path
 
 from pervigil import __version__
 from pervigil.checks.disk import check_disk
+from pervigil.checks.memory import check_memory
 from pervigil.config import Config, ConfigError, load_config
 from pervigil.result import Result, worst
 
@@ -41,7 +42,7 @@ def run_checks(config: Config) -> list[Result]:
     """Run every check with its settings from the config, in a fixed order."""
     results: list[Result] = []
     results += check_disk(config.disk.paths, config.disk.warn_percent, config.disk.crit_percent)
-    # TODO (last step of the memory task): add the memory check here, using config.memory.
+    results.append(check_memory(config.memory.warn_percent, config.memory.crit_percent))
     return results
 
 

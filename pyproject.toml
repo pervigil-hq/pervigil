@@ -1,0 +1,42 @@
+# pyproject.toml: the one file that describes this Python project.
+# It tells pip how to install Pervigil and configures the dev tools (ruff, pytest).
+
+[build-system]
+# setuptools turns src/pervigil into an installable package. It is only needed
+# at install time; Pervigil itself has no runtime dependencies (standard library only).
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pervigil"
+dynamic = ["version"]              # read from pervigil.__version__, so it lives in one place
+description = "A watchful morning report for your self-hosted server."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"         # 3.11 = Debian 12; gives us tomllib for config files
+dependencies = []                  # on purpose: nothing extra to install or audit
+
+[project.optional-dependencies]
+# Developer tools only (pip install -e ".[dev]"). Pinned so everyone, including CI,
+# gets the same results.
+dev = ["ruff==0.17.4", "pytest==9.2.0"]
+
+[project.scripts]
+# Installing the package creates a `pervigil` command that calls cli.main().
+pervigil = "pervigil.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pervigil.__version__" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# E/W: style errors · F: real bugs (unused names, undefined variables) · I: import order
+# B: common bug patterns · UP: modern Python syntax · SIM: simpler equivalent code
+select = ["E", "W", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]               # lets tests import pervigil without installing it first

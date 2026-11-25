@@ -65,7 +65,7 @@ Each check is a small function returning the same shape: `Result(name, status, v
 | A5 | Installer, `doctor`, VM tests, docs, v0.1.0 release + launch post |
 
 ## How we work
-Small pull requests, one feature each. Every piece is written or reviewed by the maintainer and **explained back before it merges** (AI-assisted development, human-understood code). Design choices get a short decision record in `docs/decisions/`.
+Small pull requests, one feature each. Every piece is written or reviewed by the maintainer and **explained back before it merges** (AI-assisted development, human-understood code). Design choices get a short decision record in [`docs/decisions/`](docs/decisions/). Security reports: see [SECURITY.md](SECURITY.md).
 
 ## Open questions
 - Exact container checks without Docker installed (skip cleanly?).

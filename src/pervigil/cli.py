@@ -41,6 +41,7 @@ def run_checks(config: Config) -> list[Result]:
     """Run every check with its settings from the config, in a fixed order."""
     results: list[Result] = []
     results += check_disk(config.disk.paths, config.disk.warn_percent, config.disk.crit_percent)
+    # TODO (last step of the memory task): add the memory check here, using config.memory.
     return results
 
 
